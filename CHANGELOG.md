@@ -4,6 +4,12 @@ All notable changes to this project will be documented here.
 
 This project loosely follows [Semantic Versioning](https://semver.org/) and uses the [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format.
 
+## [1.5.1] — 2026-08-04
+### Fixed
+
+- **Conditional `HelpBox` in the `ThemeData` inspector broke fields below it.** `ThemeDataGUI.DrawBakeState` only drew a `HelpBox` when there was a message to show — an unsaved change, a missing stylesheet, or an error — and skipped it entirely when everything was fine. That one-element layout change between frames shifted every IMGUI control ID below it, so interactions like the color picker no longer reached the right field. **Fix**: always draw the `HelpBox` in the same position, keeping the layout stable every frame.
+
+
 ## [1.5.0] — 2026-07-18
 
 Materials. A design system that renders real surfaces — stock, linework, depth, engraved lettering — on the GPU, per element, with a shader you can write yourself. Ships one family, **blueprint**, and the engine behind it.

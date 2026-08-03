@@ -71,21 +71,27 @@ namespace DesignSystem.Editor.Theming
         /// </summary>
         public static void DrawBakeState(ThemeData theme, bool dirty)
         {
-            if (!theme) return;
+            var message = "Everything is OK.";
+            var type = MessageType.Info;
 
-            if (!theme.StyleSheet)
+            if (!theme)
             {
-                EditorGUILayout.HelpBox(
-                    "This theme has never been baked, so it paints nothing at runtime. Press Save.",
-                    MessageType.Warning);
+                message = "Theme data is empty.";
+                type = MessageType.Error;
+            }
+            else if (!theme.StyleSheet)
+            {
+                message = "This theme has never been baked, so it paints nothing at runtime. Press Save.";
+                type = MessageType.Warning;
             }
             else if (dirty)
             {
-                EditorGUILayout.HelpBox(
-                    "Unsaved changes. The baked stylesheet still holds the LAST SAVED values, so the " +
-                    "runtime is showing something other than what you see here. Press Save to re-bake.",
-                    MessageType.Info);
+                message = "Unsaved changes. The baked stylesheet still holds the LAST SAVED values, so the " +
+                          "runtime is showing something other than what you see here. Press Save to re-bake.";
+                type = MessageType.Info;
             }
+            
+            EditorGUILayout.HelpBox(message, type);
         }
 
         private static void DrawScopeHint()
